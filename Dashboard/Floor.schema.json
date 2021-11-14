@@ -1,0 +1,69 @@
+{
+    "$schema": "http://json-schema.org/schema", 
+    "$id": "FloorPlan.schema.json", 
+    "description": "JSON Schema used to store information about a floor, including its floor plan, areas and data", 
+    "properties": {
+        "id": {
+            "description": "Unique identifier of each floor. Useful in the context of a building or campus.", 
+            "type": "string"
+        },
+        "name": {
+            "description": "Conventional name of the floor. Should be easily identifiable to users", 
+            "type": "string"
+        }, 
+        "dwgFile": {
+            "description": "Path to .dwg file containg architectural floor plan and distribution.", 
+            "type": "string"
+        }, 
+        "svgFile": {
+            "description": "Path to .svf file containing architectural floor plan and distribution.",
+            "type": "string"
+        },
+        "boundingBox": {
+            "description": "Coordinates for svg bounding box. Used when rendering maps",
+            "type": "array", 
+            "maxLength": 2,
+            "items": {
+                "type": "array", 
+                "maxLength": 2, 
+                "items": {
+                    "type": "number"
+                }
+            } 
+        }, 
+        "spaces": {
+            "description": "Array of spaces inside this floor",
+            "type": "array", 
+            "items": {
+                "properties": {
+                    "id": {
+                        "description": "Unique identifier of each space inside the floor", 
+                        "type": "string"
+                    }, 
+                    "name": {
+                        "description": "Conventional name of the space inside the floor", 
+                        "type": "string"
+                    }, 
+                    "category": {
+                        "description": "Category of space (eg, conference room, cubicle, personal office). Categories vary according to client's criteria", 
+                        "type": "string"
+                    }, 
+                    "vertices": {
+                        "description": "Array of vertices defining the points inside the floor", 
+                        "type": "array", 
+                        "items": {
+                            "type": "array", 
+                            "maxItems": 2, 
+                            "items": {
+                                "type": "number"
+                            }
+                        }, 
+                        "maxItems": 2
+                    }
+                }, 
+                "required": ["id", "name", "vertices"]
+            }
+        }
+    }, 
+    "required": ["id", "name", "spaces"]
+}
