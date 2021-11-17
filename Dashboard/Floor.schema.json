@@ -22,7 +22,6 @@
         "boundingBox": {
             "description": "Coordinates for svg bounding box. Used when rendering maps",
             "type": "array", 
-            "maxLength": 2,
             "items": {
                 "type": "array", 
                 "maxLength": 2, 

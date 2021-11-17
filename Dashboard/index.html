@@ -4,34 +4,48 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Floor Plan</title>
-    
-
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
-    integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
-    crossorigin=""/>
-    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
-    integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
-    crossorigin=""></script>
-    <style>
-        #map{
-            height: 80vh; width: 80vw;
-        }
-    </style>
+    <title>Floor Plan 0.2</title>
 </head>
 <body>
-    <div id="map"></div> 
+    <h1>Floor Plan (SVG) with custom pan and zoom</h1>
+    <object data="./data/rectoriaITESM-4.svg" id="map"></object>
     <script>
-        const mymap = L.map('map', {
-            renderer: L.canvas(),
-            maxBounds: [[0, 0], [800, 600]], 
-            zoomSnap: 0.1
-        }).fitBounds([[0, 0], [800, 600]])
-        const image = './data/rectoriaITESM-4.svg'
-        const imageBounds = [[0, 0], [800, 600]];
+        const map = document.querySelector('#map');
+        
+        map.addEventListener('load', ()=>{
+            const svg = map.contentDocument.querySelector('svg');
 
-L.imageOverlay(image, imageBounds).addTo(mymap);
+            const polygon = map.contentDocument.createElementNS('http://www.w3.org/2000/svg', 'polygon')
+            polygon.setAttributeNS(null, 'style', 'fill: black; stroke: blue; stroke-width: 1px;' );
+            svg.append(polygon);
+
+            // Create circle
+            const circle = map.contentDocument.createElementNS('http://www.w3.org/2000/svg', 'circle')
+            circle.setAttributeNS(null, 'style', 'fill: black; stroke: blue; stroke-width: 1px;' );
+            circle.setAttributeNS(null, 'r', 2);
+
+            const points = [];
+
+            svg.addEventListener('click', e=>{
+                const point = svg.createSVGPoint();
+                point.x = e.clientX;
+                point.y = e.clientY;
+                // The cursor point, translated into svg coordinates
+                const {x, y} =  point.matrixTransform(svg.getScreenCTM().inverse());
+                console.log(x,y)
+                // Set helper points
+                const newCircle = circle.cloneNode(true);
+                newCircle.setAttributeNS(null, 'cx', x);
+                newCircle.setAttributeNS(null, 'cy', y);
+                points.push(newCircle);
+                svg.append(newCircle);
+
+                polygon.setAttributeNS(null, 'points', points.map(c => 
+                    `${c.getAttributeNS(null, 'cx')},${c.getAttributeNS(null, 'cy')}`
+                ).join(' '))
+            })
+        })
+
     </script>
-
 </body>
 </html>
