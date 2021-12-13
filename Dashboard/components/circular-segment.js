@@ -1,11 +1,11 @@
 
 const getCirclePercentageCoordinates = percentage => [
-    Math.cos(Math.PI*2*percentage),
-    Math.sin(Math.PI*2*percentage)
+    Math.cos(Math.PI*2*percentage - Math.PI*2/4),
+    Math.sin(Math.PI*2*percentage - Math.PI*2/4)
 ];
 
-const template = document.createElement('template');
-template.innerHTML = `
+const circularSegmentTemplate = document.createElement('template');
+circularSegmentTemplate.innerHTML = `
     <style>
         :host{
             display: block;
@@ -32,13 +32,16 @@ class CircularSegmentElement extends HTMLElement{
     get fill(){
         return this.getAttribute('fill');
     }
+    get path(){
+        return this.shadowRoot.querySelector('path');
+    }
     constructor(){
         super();
         this.attachShadow({mode: 'open'});
     }
     connectedCallback(){
         this.shadowRoot.innerHTML = "";
-        this.shadowRoot.append(template.content.cloneNode(true));
+        this.shadowRoot.append(circularSegmentTemplate.content.cloneNode(true));
         this.shadowRoot.querySelector('path').setAttribute('fill', this.fill);
         this.render();
     }
@@ -54,11 +57,14 @@ class CircularSegmentElement extends HTMLElement{
         const [endX, endY] = getCirclePercentageCoordinates(this.end);
         // Determine concave/convex
         const isLargeArc = (this.end - this.start) > 0.5 ? 1 : 0;
+        // Get remaining radius
+        const remainingRadius = 1 - this.radius;
         // Create path
         const path = [
             `M ${startX} ${startY}`, // Move pen to (startX, startY)
-            `A 1 1 0 ${isLargeArc} 1 ${endX} ${endY}`, // Create arc
-            `L 0 0` // Line to origin
+            `A 1 1 0 ${isLargeArc} 1 ${endX} ${endY}`, // Create outer arc
+            `L ${remainingRadius*endX} ${remainingRadius*endY}`,
+            `A ${remainingRadius} ${remainingRadius} 0 ${isLargeArc} 0 ${remainingRadius*startX} ${remainingRadius*startY}`, // Create outer arc
         ].join(' ');
         // Set to path
         this.shadowRoot.querySelector('path')

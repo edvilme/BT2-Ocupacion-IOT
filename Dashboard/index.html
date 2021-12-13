@@ -8,8 +8,27 @@
 </head>
 <body>
     <h1>Test circular-segment</h1>
-    <circular-segment start="0" end="10" fill="blue" style="height: 200px; width: 200px;"></circular-segment>
-
+    <circular-segment-collection style="height: 200px; width: 200px;">
+        <circular-segment 
+            start="0" 
+            end="8.33333" 
+            radius="10"
+            fill="blue" 
+        ></circular-segment>
+        <circular-segment 
+            start="8.33333" 
+            end="16.6666" 
+            radius="20"
+            fill="red" 
+        ></circular-segment>
+        <circular-segment 
+            start="16.6666" 
+            end="24.9999" 
+            radius="50"
+            fill="green" 
+        ></circular-segment>
+    </circular-segment-collection>
     <script src="./components/circular-segment.js"></script>
+    <script src="./components/circular-segment-collection.js"></script>
 </body>
 </html>
