@@ -5,30 +5,57 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        body{
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            width: 100vw;
+            display: flex;
+            align-items: stretch;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        aside, main{
+            padding: 16px;
+        }
+        aside{
+            background-color: rgb(232, 233, 239);
+            flex-basis: 400px;
+        }
+            aside ul{
+                list-style: none;
+                padding: 0;
+            }
+                aside ul li{
+                    margin: 0;
+                    padding: 8px;
+                }
+
+        main{
+            flex: 1;
+            overflow: auto;
+        }
+    </style>
 </head>
 <body>
-    <h1>Test circular-segment</h1>
-    <circular-segment-collection style="height: 200px; width: 200px;">
-        <circular-segment 
-            start="0" 
-            end="8.33333" 
-            radius="10"
-            fill="blue" 
-        ></circular-segment>
-        <circular-segment 
-            start="8.33333" 
-            end="16.6666" 
-            radius="20"
-            fill="red" 
-        ></circular-segment>
-        <circular-segment 
-            start="16.6666" 
-            end="24.9999" 
-            radius="50"
-            fill="green" 
-        ></circular-segment>
-    </circular-segment-collection>
-    <script src="./components/circular-segment.js"></script>
-    <script src="./components/circular-segment-collection.js"></script>
+    <aside>
+        <h1>Ocupación IOT</h1>
+        <ul>
+            <li>Rectoría Piso 4</li>
+            <li>Biblioteca</li>
+            <li>Salón de congresos</li>
+        </ul>
+    </aside>
+    <main>
+        <h1>Rectoría, Piso 4</h1>
+        <div>
+            <input type="datetime-local" name="" id="">
+            <input type="button" value="Hoy">
+        </div>
+        <floor-view data="./data/rectoriaITESM-4.svg">
+            <floor-view-area data-vertices="306.21722412109375,201.27340698242188 497.9775390625,202.47190856933594 497.9775390625,417.6029968261719 306.21722412109375, 416.40447998046875"></floor-view-area>
+        </floor-view>
+    </main>
+    <script src="./components/floor-view.js"></script>
 </body>
 </html>
