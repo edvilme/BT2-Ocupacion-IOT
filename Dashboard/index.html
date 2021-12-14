@@ -20,7 +20,7 @@
         }
         aside{
             background-color: rgb(232, 233, 239);
-            flex-basis: 400px;
+            flex-basis: 300px;
         }
             aside ul{
                 list-style: none;
@@ -55,7 +55,45 @@
         <floor-view data="./data/rectoriaITESM-4.svg">
             <floor-view-area data-vertices="306.21722412109375,201.27340698242188 497.9775390625,202.47190856933594 497.9775390625,417.6029968261719 306.21722412109375, 416.40447998046875"></floor-view-area>
         </floor-view>
+
+        <h2>Componentes</h2>
+        <p>Estos son algunos de los principales componentes a mostrar</p>
+        <data-day
+            style="height: 50px; width: 50px;"
+            type="circle"
+            data-date="2021-12-14T00:00:00"
+            data-stats='[
+                {
+                    "time": "09:00", 
+                    "count": 0, 
+                    "average": 0
+                },
+                {
+                    "time": "10:00", 
+                    "count": 0, 
+                    "average": 0
+                },
+                {
+                    "time": "11:00", 
+                    "count": 12, 
+                    "average": 5
+                },
+                {
+                    "time": "12:00", 
+                    "count": 20, 
+                    "average": 9
+                },
+                {
+                    "time": "13:00", 
+                    "count": 30, 
+                    "average": 10
+                }
+            ]'
+        ></data-day>
+
     </main>
     <script src="./components/floor-view.js"></script>
+    <script src="./components/circular-segment-collection.js" type="module"></script>
+    <script src="./components/data-day.js" type="module"></script>
 </body>
 </html>

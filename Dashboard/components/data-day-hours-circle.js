@@ -1,3 +1,0 @@
-class DataDayHoursCircleElement extends HTMLElement{
-
-}

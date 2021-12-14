@@ -73,3 +73,4 @@ class CircularSegmentElement extends HTMLElement{
 }
 
 customElements.define('circular-segment', CircularSegmentElement);
+export default CircularSegmentElement;
