@@ -1,0 +1,26 @@
+{
+    "$schema": "http://json-schema.org/schema", 
+    "$id": "ocuppation.schema.json", 
+    "description": "Describes a record of a measurement",
+    "properties": {
+        "id": {
+            "type": "string", 
+            "description": "Unique identifier of measurement"
+        }, 
+        "date": {
+            "type": "string", 
+            "format": "date", 
+            "description": "Date associated with measurement"
+        }, 
+        "concept": {
+            "type": "string", 
+            "enum": ["occupation"], 
+            "description": "Concept of the measurement"
+        }, 
+        "value": {
+            "type": "number", 
+            "description": "Value of the measurement"
+        }
+    }, 
+    "required": ["date", "value"]
+}

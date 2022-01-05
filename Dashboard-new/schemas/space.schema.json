@@ -1,0 +1,36 @@
+{
+    "$schema": "http://json-schema.org/schema", 
+    "$id": "space.schema.json", 
+    "description": "A space is a subdivision of a space for its analysis", 
+    "properties": {
+        "id": {
+            "type": "string", 
+            "description": "Unique identifier of space"
+        }, 
+        "floorID": {
+            "type": "string", 
+            "description": "Unique identifier of the floor this space belongs to"
+        },
+        "vertices": {
+            "type": "array", 
+            "description": "Array of coordinate pairs describing the vertices of the space in its floor map",
+            "items": {
+                "type": "array", 
+                "maxItems": 2, 
+                "items": {
+                    "type": "number"
+                }
+            }
+        }, 
+        "properties": {
+            "type": "object"
+        }, 
+        "data": {
+            "type": "array", 
+            "description": "Array with time based measurements for the space", 
+            "items": {
+                "$ref": "./occupation.schema.json"
+            }
+        }
+    }
+}

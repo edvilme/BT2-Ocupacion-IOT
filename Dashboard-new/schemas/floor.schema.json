@@ -1,0 +1,31 @@
+{
+    "$schema": "http://json-schema.org/schema",
+    "$id": "floor.schema.json", 
+    "description": "A floor is an area inside a building that contains multiple spaces for their analysis", 
+    "properties": {
+        "id": {
+            "type": "string", 
+            "description": "Unique identifier of the floor"
+        }, 
+        "map": {
+            "description": "Properties for map rendering", 
+            "properties": {
+                "src": {
+                    "type": "string", 
+                    "description": "URL of svg file"
+                }
+            }
+        }, 
+        "properties": {
+            "type": "object"
+        }, 
+        "spaces": {
+            "type": "array", 
+            "description": "List of spaces in this floor", 
+            "items": {
+                "$ref": "./space.schema.json"
+            }
+        }
+    }, 
+    "required": ["id", "map"]
+}
