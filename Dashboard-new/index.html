@@ -25,6 +25,12 @@
             padding: 16px;
             overflow: auto;
         }
+        #details{
+            border: 1px solid;
+            padding: 16px;
+            margin: 8px;
+            white-space: pre;
+        }
     </style>
 </head>
 <body>
@@ -33,6 +39,7 @@
         <h1>Rectoría, Piso 4</h1>
         <select name="" id=""></select>
         <floor-map src="./test2.json" date="2022-01-29T04:00:00.000Z"></floor-map>
+        <div id="details"></div>
     </main>
 
     <script src="./floor-map.js" type="module"></script>
@@ -51,6 +58,7 @@
 
         document.querySelector('floor-map').addEventListener('select', e=>{
             console.log(e.detail)
+            document.querySelector('#details').innerHTML = JSON.stringify(e.detail, null, 2)
         })
     </script>
 </body>
