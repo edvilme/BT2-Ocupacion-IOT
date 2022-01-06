@@ -7,20 +7,34 @@
     <title>Document</title>
     <style>
         body{
+            height: 100vh;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: row;
+            align-items: stretch;
             font-family: Arial, Helvetica, sans-serif;
+        }
+        aside{
+            background-color: rgb(231, 233, 238);
+            flex-basis: 400px;
+            overflow: auto;
+        }
+        main{
+            flex: 1;
+            padding: 16px;
+            overflow: auto;
         }
     </style>
 </head>
 <body>
-    <h1>Test</h1>
+    <aside></aside>
+    <main>
+        <h1>Rectoría, Piso 4</h1>
+        <select name="" id=""></select>
+        <floor-map src="./test2.json" date="2022-01-29T04:00:00.000Z"></floor-map>
+    </main>
 
-    <div>
-        <select>
-
-        </select>
-    </div>
-
-    <floor-map src="./test2.json" date="2022-01-29T04:00:00.000Z"></floor-map>
     <script src="./floor-map.js" type="module"></script>
     <script>
         const initialDate = new Date(2021, 11, 25);
@@ -31,10 +45,9 @@
             document.querySelector('select').append(option)
         }
         document.querySelector('select').addEventListener('change', e=>{
-            const date = new Date(e.target.value).toISOString();
-            document.querySelector('floor-map').setAttribute('date', date)
+            const date = new Date(e.target.value);
+            document.querySelector('floor-map').setAttribute('date', date.toISOString())
         })
-
 
         document.querySelector('floor-map').addEventListener('select', e=>{
             console.log(e.detail)

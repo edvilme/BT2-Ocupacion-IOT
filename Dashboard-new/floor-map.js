@@ -7,8 +7,8 @@ template.innerHTML = `
             display: block;
             font-family: Arial, Helvetica, sans-serif;
         }
-        polygon{
-            mix-blend-mode: multiply
+        object{
+            height: 100%
         }
     </style>
     <object></object>
