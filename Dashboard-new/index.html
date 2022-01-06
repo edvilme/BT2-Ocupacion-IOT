@@ -5,31 +5,20 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        body{
+            font-family: Arial, Helvetica, sans-serif;
+        }
+    </style>
 </head>
 <body>
     <h1>Test</h1>
-    <!-- <object data="./rectoriaITESM-4.svg"></object> -->
     <floor-map src="./test.json"></floor-map>
-    <!-- <script>
-        async function load(){
-            const res = await fetch('/test2.json');
-            const data = await res.json();
-
-            document.querySelector('object').setAttribute('data', data?.map?.src);
-
-            document.querySelector('object').addEventListener('load', ()=>{
-                const contentDocument = document.querySelector('object').contentDocument;
-
-                data?.spaces?.forEach?.(space => {
-                    const polygon = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
-                    const points = space?.vertices?.map?.(([x, y]) => `${x},${y}`).join(' ');
-                    polygon.setAttributeNS(null, 'points', points);
-                    polygon.setAttributeNS(null, 'id', space.id)
-                    contentDocument.querySelector('svg').append(polygon);
-                });
-            });
-        }
-    </script> -->
-    <script src="./floor-map.js"></script>
+    <script src="./floor-map.js" type="module"></script>
+    <script>
+        document.querySelector('floor-map').addEventListener('select', e=>{
+            console.log(e.detail)
+        })
+    </script>
 </body>
 </html>

@@ -9,7 +9,7 @@
         }, 
         "date": {
             "type": "string", 
-            "format": "date", 
+            "format": "datetime", 
             "description": "Date associated with measurement"
         }, 
         "concept": {

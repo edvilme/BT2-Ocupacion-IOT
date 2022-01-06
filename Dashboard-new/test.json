@@ -6,7 +6,7 @@
     },
     "spaces": [
         {
-            "id": "rectoria-ITESM-4/asistentes",
+            "id": "rectoria-ITESM-4-asistentes",
             "properties": {
                 "name": "Asistentes de rectoría"
             },
@@ -30,7 +30,7 @@
             ]
         },
         {
-            "id": "rectoria-ITESM-4/tec.mx",
+            "id": "rectoria-ITESM-4-tec.mx",
             "properties": {
                 "name": "Tec.mx"
             },
@@ -54,7 +54,7 @@
             ]
         },
         {
-            "id": "rectoria-ITESM-4/360",
+            "id": "rectoria-ITESM-4-360",
             "properties": {
                 "name": "360"
             },
@@ -78,7 +78,7 @@
             ]
         },
         {
-            "id": "rectoria-ITESM-4/equipo",
+            "id": "rectoria-ITESM-4-equipo",
             "properties": {
                 "name": "Trabajo en equipo"
             },
@@ -102,7 +102,7 @@
             ]
         },
         {
-            "id": "rectoria-ITESM-4/espera",
+            "id": "rectoria-ITESM-4-espera",
             "properties": {
                 "name": "Sala de espera"
             },

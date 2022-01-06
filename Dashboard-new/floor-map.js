@@ -1,16 +1,30 @@
+import { getColorFromPercentage } from "./colors.js";
+
 const template = document.createElement('template');
 template.innerHTML = `
     <style>
         :host{
-            display: block
+            display: block;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        polygon{
+            mix-blend-mode: multiply
         }
     </style>
     <object></object>
 `
 
+const polygon = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
+polygon.style.mixBlendMode = 'darken'
+
+const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+text.setAttributeNS(null, 'text-anchor', 'middle');
+text.setAttributeNS(null, 'fill', 'white')
+text.setAttributeNS(null, 'font-family', 'Arial, Helvetica, sans-serif')
+
 class FloorMapElement extends HTMLElement{
     static get observedAttributes(){
-        return ["src"]
+        return ["src", "date"]
     }
 
     constructor(){
@@ -27,26 +41,37 @@ class FloorMapElement extends HTMLElement{
 
             this.__data?.spaces?.forEach?.(space => {
                 // Make polygon
-                const polygon = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
-                polygon.setAttributeNS(null, 'id', space.id)
-                // Make points
-                const points = space?.vertices?.map?.(([x, y]) => `${x},${y}`).join(' ');
-                polygon.setAttributeNS(null, 'points', points);
-                // Get centroid
+                const __polygon = polygon.cloneNode(true)
+                __polygon.setAttributeNS(null, 'points', space?.vertices?.map?.(([x, y]) => `${x},${y}`).join(' '));
+                __polygon.setAttributeNS(null, 'id', space.id)
+                // Make text
                 const centerX = space?.vertices?.reduce?.((acc, [x, y]) => acc+=x, 0)/space?.vertices?.length
                 const centerY = space?.vertices?.reduce?.((acc, [x, y]) => acc+=y, 0)/space?.vertices?.length
-                // Make text
-                const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-                text.setAttributeNS(null, 'x', centerX);
-                text.setAttributeNS(null, 'y', centerY);
-                text.setAttributeNS(null, 'text-anchor', 'middle');
-                text.setAttributeNS(null, 'fill', 'white')
-                text.innerHTML = space?.properties?.name || space?.id
+                const __text = text.cloneNode(true)
+                __text.setAttributeNS(null, 'x', centerX);
+                __text.setAttributeNS(null, 'y', centerY);
+                __text.innerHTML = space?.properties?.name || space?.id
+                // Append
+                contentDocument.querySelector('svg').append(__polygon);
+                contentDocument.querySelector('svg').append(__text);
+                // Click event listener
+                __polygon.addEventListener('click', (e)=>{
+                    this.dispatchEvent(new CustomEvent('select', {detail: space}))
+                })
+            });
 
-                contentDocument.querySelector('svg').append(polygon);
-                contentDocument.querySelector('svg').append(text);
-            })
+            this.update();
         })
+    }
+
+
+    update(){
+        this.__data?.spaces?.forEach?.(space => {
+            console.log(space)
+            const __polygon = this.shadowRoot.querySelector('object').contentDocument.getElementById(space.id)
+            __polygon.setAttributeNS(null, 'fill', getColorFromPercentage(Math.random()));
+        })
+        
     }
 
     attributeChangedCallback(attr, oldValue, newValue){
@@ -58,6 +83,9 @@ class FloorMapElement extends HTMLElement{
                         this.shadowRoot.querySelector('object').setAttribute('data', json.map.src)
                     })
                     .catch(console.log)
+        } 
+        if(attr == "date"){
+            this.update();
         }
     }
 
