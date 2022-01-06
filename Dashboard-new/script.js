@@ -9,7 +9,7 @@ fs.readFile('./test.json', (err, data) => {
         //
         d.spaces[i].data = [];
         // Generate 285 hours of data since december 25 2021
-        const initialDate = new Date(2021, 12, 25);
+        const initialDate = new Date(2021, 11, 25);
         for(let j = 0; j < 285; j++){
             // Get date
             const date = new Date(initialDate.setHours(initialDate.getHours() + 1));

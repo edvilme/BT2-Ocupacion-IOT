@@ -66,10 +66,14 @@ class FloorMapElement extends HTMLElement{
 
 
     update(){
+        // Get date
+        const date = this.getAttribute('date')
+
         this.__data?.spaces?.forEach?.(space => {
-            console.log(space)
             const __polygon = this.shadowRoot.querySelector('object').contentDocument.getElementById(space.id)
-            __polygon.setAttributeNS(null, 'fill', getColorFromPercentage(Math.random()));
+            const occupation = space.data.find(item => item.date == date)?.value || 0;
+            const occupationPercentage = occupation/space.maxOccupancy;
+            __polygon.setAttributeNS(null, 'fill', getColorFromPercentage(occupationPercentage));
         })
         
     }

@@ -13,9 +13,29 @@
 </head>
 <body>
     <h1>Test</h1>
-    <floor-map src="./test.json"></floor-map>
+
+    <div>
+        <select>
+
+        </select>
+    </div>
+
+    <floor-map src="./test2.json" date="2022-01-29T04:00:00.000Z"></floor-map>
     <script src="./floor-map.js" type="module"></script>
     <script>
+        const initialDate = new Date(2021, 11, 25);
+        for(let i = 0; i < 100; i++){
+            const date = new Date(initialDate.setHours(initialDate.getHours() + 1));
+            const option = document.createElement('option');
+            option.innerHTML = date;
+            document.querySelector('select').append(option)
+        }
+        document.querySelector('select').addEventListener('change', e=>{
+            const date = new Date(e.target.value).toISOString();
+            document.querySelector('floor-map').setAttribute('date', date)
+        })
+
+
         document.querySelector('floor-map').addEventListener('select', e=>{
             console.log(e.detail)
         })
