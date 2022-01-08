@@ -17,7 +17,7 @@
         }
         aside{
             background-color: rgb(231, 233, 238);
-            flex-basis: 400px;
+            flex-basis: 300px;
             overflow: auto;
         }
         main{
@@ -31,35 +31,51 @@
             margin: 8px;
             white-space: pre;
         }
+
     </style>
 </head>
 <body>
     <aside></aside>
     <main>
         <h1>Rectoría, Piso 4</h1>
-        <select name="" id=""></select>
-        <floor-map src="./test2.json" date="2022-01-29T04:00:00.000Z"></floor-map>
-        <div id="details"></div>
+        <div id="container" style="position: relative;">
+            <floor-map src="./test2.json" date="2022-01-29T04:00:00.000Z"></floor-map>
+
+            <popup-window id="test" x="100px" y="3%" style="position: absolute;">
+                <div style="background: rgba(255, 255, 255, 0.9); border: 1px solid; padding: 16px; height: 60px; width: 40px; backdrop-filter: blur(80px);"></div>
+            </popup-window>
+
+        </div>
     </main>
+    <script>
+        function getCoordinatePercentages(x, y, parent){
+            return {
+                x: (x - parent.getBoundingClientRect().x)/parent.getBoundingClientRect().width, 
+                y: (y - parent.getBoundingClientRect().y)/parent.getBoundingClientRect().height
+            }
+        }
+        document.querySelector('floor-map').addEventListener('select', e=>{
+            const {x, y} = e.detail.center;
+            const percentageCoords = getCoordinatePercentages(x, y, document.querySelector('#container'));
+            document.querySelector('#test').show()
+            document.querySelector('#test').setAttribute('x', percentageCoords.x*100+'%')
+            document.querySelector('#test').setAttribute('y', percentageCoords.y*100+'%')
+        })
+        /* function getPercentageCoords(x, y, parent){
+            return [
+                (x - parent.getBoundingClientRect().x)/parent.getBoundingClientRect().width,
+                (y - parent.getBoundingClientRect().y)/parent.getBoundingClientRect().height,
+            ]
+        }
+        document.querySelector('floor-map').addEventListener('select', e=>{
+            const {x, y} = e.detail.center;
+            const percentage = getPercentageCoords(x, y, document.querySelector('floor-map'));
+            document.querySelector('#test').setAttribute('left', percentage[0]*100 + "%")
+            document.querySelector('#test').setAttribute('right', percentage[1]*100 + "%")
+        }) */
+    </script>
 
     <script src="./floor-map.js" type="module"></script>
-    <script>
-        const initialDate = new Date(2021, 11, 25);
-        for(let i = 0; i < 100; i++){
-            const date = new Date(initialDate.setHours(initialDate.getHours() + 1));
-            const option = document.createElement('option');
-            option.innerHTML = date;
-            document.querySelector('select').append(option)
-        }
-        document.querySelector('select').addEventListener('change', e=>{
-            const date = new Date(e.target.value);
-            document.querySelector('floor-map').setAttribute('date', date.toISOString())
-        })
-
-        document.querySelector('floor-map').addEventListener('select', e=>{
-            console.log(e.detail)
-            document.querySelector('#details').innerHTML = JSON.stringify(e.detail, null, 2)
-        })
-    </script>
+    <script src="./popup-window.js" type="module"></script>
 </body>
 </html>

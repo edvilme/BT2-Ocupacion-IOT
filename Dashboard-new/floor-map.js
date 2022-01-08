@@ -7,11 +7,13 @@ template.innerHTML = `
             display: block;
             font-family: Arial, Helvetica, sans-serif;
         }
-        object{
+        div{
             height: 100%
         }
     </style>
-    <object></object>
+    <div>
+
+    </div>
 `
 
 const polygon = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
@@ -22,55 +24,72 @@ text.setAttributeNS(null, 'text-anchor', 'middle');
 text.setAttributeNS(null, 'fill', 'white')
 text.setAttributeNS(null, 'font-family', 'Arial, Helvetica, sans-serif')
 
+const foreignObject = document.createElementNS('http://www.w3.org/2000/svg', 'foreignObject');
+foreignObject.style.overflow = 'auto';
+foreignObject.innerHTML = `
+    <div xmlns="http://www.w3.org/1999/xhtml"><slot></slot></div>
+`
+
 class FloorMapElement extends HTMLElement{
     static get observedAttributes(){
         return ["src", "date"]
     }
-
     constructor(){
         super();
         this.attachShadow({mode: "open"})
     }
-
     connectedCallback(){
         this.shadowRoot.innerHTML = "";
         this.shadowRoot.append(template.content.cloneNode(true));
-
-        this.shadowRoot.querySelector('object').addEventListener('load', ()=>{
-            const contentDocument = this.shadowRoot.querySelector('object').contentDocument;
-
-            this.__data?.spaces?.forEach?.(space => {
-                // Make polygon
-                const __polygon = polygon.cloneNode(true)
-                __polygon.setAttributeNS(null, 'points', space?.vertices?.map?.(([x, y]) => `${x},${y}`).join(' '));
-                __polygon.setAttributeNS(null, 'id', space.id)
-                // Make text
-                const centerX = space?.vertices?.reduce?.((acc, [x, y]) => acc+=x, 0)/space?.vertices?.length
-                const centerY = space?.vertices?.reduce?.((acc, [x, y]) => acc+=y, 0)/space?.vertices?.length
-                const __text = text.cloneNode(true)
-                __text.setAttributeNS(null, 'x', centerX);
-                __text.setAttributeNS(null, 'y', centerY);
-                __text.innerHTML = space?.properties?.name || space?.id
-                // Append
-                contentDocument.querySelector('svg').append(__polygon);
-                contentDocument.querySelector('svg').append(__text);
-                // Click event listener
-                __polygon.addEventListener('click', (e)=>{
-                    this.dispatchEvent(new CustomEvent('select', {detail: space}))
-                })
-            });
-
-            this.update();
-        })
     }
-
-
+    async loadSVG(src){
+        const res = await fetch(src);
+        const data = await res.text();
+        this.shadowRoot.querySelector('div').innerHTML = data;
+        // Draw spaces
+        this.drawSpaces();
+        // Add foreign object
+        // this.shadowRoot.querySelector('svg').append(foreignObject.cloneNode(true))
+        // Update
+        this.update();
+    }
+    drawSpaces(){
+        this.__data?.spaces?.forEach?.(space => {
+            // Make polygon
+            const __polygon = polygon.cloneNode(true)
+            __polygon.setAttributeNS(null, 'points', space?.vertices?.map?.(([x, y]) => `${x},${y}`).join(' '));
+            __polygon.setAttributeNS(null, 'id', space.id)
+            // Get center
+            const centerX = space?.vertices?.reduce?.((acc, [x, y]) => acc+=x, 0)/space?.vertices?.length
+            const centerY = space?.vertices?.reduce?.((acc, [x, y]) => acc+=y, 0)/space?.vertices?.length
+            // Make text
+            const __text = text.cloneNode(true)
+            __text.setAttributeNS(null, 'x', centerX);
+            __text.setAttributeNS(null, 'y', centerY);
+            __text.innerHTML = space?.properties?.name || space?.id
+            // Append
+            this.shadowRoot.querySelector('svg').append(__polygon);
+            this.shadowRoot.querySelector('svg').append(__text);
+            // Click event listener
+            __polygon.addEventListener('click', (e)=>{
+                const x = __polygon.getBoundingClientRect().x + __polygon.getBoundingClientRect().width/2
+                const y = __polygon.getBoundingClientRect().y + __polygon.getBoundingClientRect().height/2
+                this.dispatchEvent(
+                    new CustomEvent('select', { 
+                        detail: {
+                            space, 
+                            center: {x, y}
+                        } 
+                    })
+                )
+            })
+        });
+    }
     update(){
         // Get date
         const date = this.getAttribute('date')
-
         this.__data?.spaces?.forEach?.(space => {
-            const __polygon = this.shadowRoot.querySelector('object').contentDocument.getElementById(space.id)
+            const __polygon = this.shadowRoot.querySelector('svg').getElementById(space.id)
             const occupation = space.data.find(item => item.date == date)?.value || 0;
             const occupationPercentage = occupation/space.maxOccupancy;
             __polygon.setAttributeNS(null, 'fill', getColorFromPercentage(occupationPercentage));
@@ -84,7 +103,7 @@ class FloorMapElement extends HTMLElement{
                     .then(res => res.json())
                     .then(json => {
                         this.__data = json;
-                        this.shadowRoot.querySelector('object').setAttribute('data', json.map.src)
+                        this.loadSVG(json.map.src)
                     })
                     .catch(console.log)
         } 
