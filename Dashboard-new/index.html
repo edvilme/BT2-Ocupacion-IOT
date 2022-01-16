@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
     <title>Document</title>
     <style>
         body{
@@ -14,39 +16,49 @@
             flex-direction: row;
             align-items: stretch;
             font-family: Arial, Helvetica, sans-serif;
+            flex-wrap: wrap;
         }
-        aside{
-            background-color: rgb(231, 233, 238);
-            flex-basis: 300px;
-            overflow: auto;
-        }
+        
         main{
             flex: 1;
             padding: 16px;
             overflow: auto;
         }
-        #details{
-            border: 1px solid;
+        aside{
+            flex-basis: 300px;
+            background-color: rgb(231, 233, 238);
+            overflow: auto;
             padding: 16px;
-            margin: 8px;
-            white-space: pre;
         }
+
+        #detail-occupation{
+            display: flex;
+            align-items: center;
+            font-size: 3em;
+        }
+            #detail-occupation>span{
+                font-size: inherit;
+            }
 
     </style>
 </head>
 <body>
-    <aside></aside>
     <main>
         <h1>Rectoría, Piso 4</h1>
-        <div id="container" style="position: relative;">
-            <floor-map src="./test2.json" date="2022-01-29T04:00:00.000Z"></floor-map>
-
-            <popup-window id="test" x="100px" y="3%" style="position: absolute;">
-                <div style="background: rgba(255, 255, 255, 0.9); border: 1px solid; padding: 16px; height: 60px; width: 40px; backdrop-filter: blur(80px);"></div>
-            </popup-window>
-
-        </div>
+        <floor-map src="./test2.json" date="2022-01-29T04:00:00.000Z"></floor-map>
     </main>
+    <aside>
+        <h2 id="detail-name">Sala de espera</h2>
+        <p id="detail-id">rectoria-ITESM-4-espera</p>
+        <div id="detail-occupation">
+            <span>1 - 4</span>
+            <span class="material-icons">emoji_people</span>
+        </div>
+        <hr>
+
+        <div id="test"></div>
+
+    </aside>
     <script>
         function getCoordinatePercentages(x, y, parent){
             return {
@@ -55,27 +67,11 @@
             }
         }
         document.querySelector('floor-map').addEventListener('select', e=>{
-            const {x, y} = e.detail.center;
-            const percentageCoords = getCoordinatePercentages(x, y, document.querySelector('#container'));
-            document.querySelector('#test').show()
-            document.querySelector('#test').setAttribute('x', percentageCoords.x*100+'%')
-            document.querySelector('#test').setAttribute('y', percentageCoords.y*100+'%')
+            document.querySelector('#test').innerHTML = JSON.stringify(e.detail.space, null, 2);
         })
-        /* function getPercentageCoords(x, y, parent){
-            return [
-                (x - parent.getBoundingClientRect().x)/parent.getBoundingClientRect().width,
-                (y - parent.getBoundingClientRect().y)/parent.getBoundingClientRect().height,
-            ]
-        }
-        document.querySelector('floor-map').addEventListener('select', e=>{
-            const {x, y} = e.detail.center;
-            const percentage = getPercentageCoords(x, y, document.querySelector('floor-map'));
-            document.querySelector('#test').setAttribute('left', percentage[0]*100 + "%")
-            document.querySelector('#test').setAttribute('right', percentage[1]*100 + "%")
-        }) */
+        
     </script>
 
     <script src="./floor-map.js" type="module"></script>
-    <script src="./popup-window.js" type="module"></script>
 </body>
 </html>
