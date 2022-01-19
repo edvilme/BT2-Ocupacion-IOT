@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
-      rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <title>Document</title>
     <style>
-        body{
+        body {
             height: 100vh;
             padding: 0;
             margin: 0;
@@ -18,60 +18,121 @@
             font-family: Arial, Helvetica, sans-serif;
             flex-wrap: wrap;
         }
-        
-        main{
+
+        main {
             flex: 1;
             padding: 16px;
             overflow: auto;
         }
-        aside{
+
+        aside {
             flex-basis: 300px;
             background-color: rgb(231, 233, 238);
             overflow: auto;
             padding: 16px;
         }
 
-        #detail-occupation{
+
+
+
+        #detail-id {
+            font-weight: 600;
+            color: grey;
+        }
+
+        #detail-name {
+            font-weight: 800;
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        #detail-occupation {
             display: flex;
             align-items: center;
             font-size: 3em;
         }
-            #detail-occupation>span{
-                font-size: inherit;
-            }
 
+        #detail-occupation>span {
+            font-size: inherit;
+        }
     </style>
 </head>
+
 <body>
     <main>
         <h1>Rectoría, Piso 4</h1>
-        <floor-map src="./test2.json" date="2022-01-29T04:00:00.000Z"></floor-map>
+        <floor-map src="./test2.json" date="2022-01-29T04:00:00.000Z">
+            <div style="height: 10px; width: 10px; background: black;"></div>
+        </floor-map>
     </main>
     <aside>
-        <h2 id="detail-name">Sala de espera</h2>
-        <p id="detail-id">rectoria-ITESM-4-espera</p>
+        <div id="detail-id">rectoria-ITESM-4-espera</div>
+        <div id="detail-name">Sala de espera</div>
         <div id="detail-occupation">
             <span>1 - 4</span>
             <span class="material-icons">emoji_people</span>
         </div>
         <hr>
+        <canvas id="detail-historic-chart" height="400px"></canvas>
+        <hr>
 
         <div id="test"></div>
 
     </aside>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/moment@^2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-moment@^1"></script>
     <script>
-        function getCoordinatePercentages(x, y, parent){
-            return {
-                x: (x - parent.getBoundingClientRect().x)/parent.getBoundingClientRect().width, 
-                y: (y - parent.getBoundingClientRect().y)/parent.getBoundingClientRect().height
-            }
-        }
-        document.querySelector('floor-map').addEventListener('select', e=>{
+        document.querySelector('floor-map').addEventListener('select', e => {
             document.querySelector('#test').innerHTML = JSON.stringify(e.detail.space, null, 2);
+            myChart.data.datasets[0].data = e.detail.space.data;
+            myChart.update();
         })
-        
+
+        const ctx = document.getElementById('detail-historic-chart').getContext('2d');
+        let myChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: [],
+                datasets: [
+                    {
+                        data: [],
+                        label: 'Ocupación histórica'
+                    }
+                ]
+            },
+            options: {
+                scales: {
+                    x: {
+                        type: 'time',
+                        time: {
+                            // Luxon format string
+                            tooltipFormat: 'DD T'
+                        },
+                        title: {
+                            display: true,
+                            text: 'Date'
+                        }
+                    },
+                    y: {
+                        title: {
+                            display: true,
+                            text: 'value'
+                        }
+                    }
+                },
+                parsing: {
+                    xAxisKey: 'date',
+                    yAxisKey: 'value'
+                }
+            }
+        });
+
+
     </script>
 
     <script src="./floor-map.js" type="module"></script>
+
 </body>
+
 </html>
