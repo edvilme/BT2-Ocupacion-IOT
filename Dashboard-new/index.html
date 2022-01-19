@@ -212,6 +212,12 @@
         })
 
         document.querySelector('floor-map').addEventListener('select', e => {
+            document.querySelector('#detail-id').innerHTML = e.detail.space.id;
+            document.querySelector('#detail-name').innerHTML = e.detail.space.properties.name;
+            document.querySelector('#detail-occupation>span').innerHTML = e.detail.space.data
+                .find(e=>e.date == document.querySelector('#date').value)
+                ?.value;
+
             document.querySelector('#test').innerHTML = JSON.stringify(e.detail.space, null, 2);
             myChart.data.datasets[0].data = e.detail.space.data;
             myChart.update();
