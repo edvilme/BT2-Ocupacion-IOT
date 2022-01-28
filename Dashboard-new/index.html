@@ -1,272 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <title>Document</title>
-    <style>
-        body {
-            height: 100vh;
-            padding: 0;
-            margin: 0;
-            display: flex;
-            flex-direction: row;
-            align-items: stretch;
-            font-family: Arial, Helvetica, sans-serif;
-            flex-wrap: wrap;
-        }
-
-        main {
-            flex: 1;
-            padding: 16px;
-            overflow: auto;
-        }
-
-        aside {
-            flex-basis: 300px;
-            background-color: rgb(231, 233, 238);
-            overflow: auto;
-            padding: 16px;
-        }
-
-
-
-
-        #detail-id {
-            font-weight: 600;
-            color: grey;
-        }
-
-        #detail-name {
-            font-weight: 800;
-            font-size: 2rem;
-            margin-bottom: 0.5rem;
-        }
-
-        #detail-occupation {
-            display: flex;
-            align-items: center;
-            font-size: 3em;
-        }
-
-        #detail-occupation>span {
-            font-size: inherit;
-        }
-    </style>
+    <title>Tablero — Ocupación de espacios</title>
+    <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
-    <main>
-        <select name="date" id="date">
-            <option value="2021-12-25T07:00:00.000Z">2021-12-25 07:00</option>
-            <option value="2021-12-25T08:00:00.000Z">2021-12-25 08:00</option>
-            <option value="2021-12-25T09:00:00.000Z">2021-12-25 09:00</option>
-            <option value="2021-12-25T10:00:00.000Z">2021-12-25 10:00</option>
-            <option value="2021-12-25T11:00:00.000Z">2021-12-25 11:00</option>
-            <option value="2021-12-25T12:00:00.000Z">2021-12-25 12:00</option>
-            <option value="2021-12-25T13:00:00.000Z">2021-12-25 13:00</option>
-            <option value="2021-12-25T14:00:00.000Z">2021-12-25 14:00</option>
-            <option value="2021-12-25T15:00:00.000Z">2021-12-25 15:00</option>
-            <option value="2021-12-25T16:00:00.000Z">2021-12-25 16:00</option>
-            <option value="2021-12-25T17:00:00.000Z">2021-12-25 17:00</option>
-            <option value="2021-12-25T18:00:00.000Z">2021-12-25 18:00</option>
-            <option value="2021-12-25T19:00:00.000Z">2021-12-25 19:00</option>
-            <option value="2021-12-25T20:00:00.000Z">2021-12-25 20:00</option>
-            <option value="2021-12-25T21:00:00.000Z">2021-12-25 21:00</option>
-            <option value="2021-12-25T22:00:00.000Z">2021-12-25 22:00</option>
-            <option value="2021-12-25T23:00:00.000Z">2021-12-25 23:00</option>
-            <option value="2021-12-26T00:00:00.000Z">2021-12-26 00:00</option>
-            <option value="2021-12-26T01:00:00.000Z">2021-12-26 01:00</option>
-            <option value="2021-12-26T02:00:00.000Z">2021-12-26 02:00</option>
-            <option value="2021-12-26T03:00:00.000Z">2021-12-26 03:00</option>
-            <option value="2021-12-26T04:00:00.000Z">2021-12-26 04:00</option>
-            <option value="2021-12-26T05:00:00.000Z">2021-12-26 05:00</option>
-            <option value="2021-12-26T06:00:00.000Z">2021-12-26 06:00</option>
-            <option value="2021-12-26T07:00:00.000Z">2021-12-26 07:00</option>
-            <option value="2021-12-26T08:00:00.000Z">2021-12-26 08:00</option>
-            <option value="2021-12-26T09:00:00.000Z">2021-12-26 09:00</option>
-            <option value="2021-12-26T10:00:00.000Z">2021-12-26 10:00</option>
-            <option value="2021-12-26T11:00:00.000Z">2021-12-26 11:00</option>
-            <option value="2021-12-26T12:00:00.000Z">2021-12-26 12:00</option>
-            <option value="2021-12-26T13:00:00.000Z">2021-12-26 13:00</option>
-            <option value="2021-12-26T14:00:00.000Z">2021-12-26 14:00</option>
-            <option value="2021-12-26T15:00:00.000Z">2021-12-26 15:00</option>
-            <option value="2021-12-26T16:00:00.000Z">2021-12-26 16:00</option>
-            <option value="2021-12-26T17:00:00.000Z">2021-12-26 17:00</option>
-            <option value="2021-12-26T18:00:00.000Z">2021-12-26 18:00</option>
-            <option value="2021-12-26T19:00:00.000Z">2021-12-26 19:00</option>
-            <option value="2021-12-26T20:00:00.000Z">2021-12-26 20:00</option>
-            <option value="2021-12-26T21:00:00.000Z">2021-12-26 21:00</option>
-            <option value="2021-12-26T22:00:00.000Z">2021-12-26 22:00</option>
-            <option value="2021-12-26T23:00:00.000Z">2021-12-26 23:00</option>
-            <option value="2021-12-27T00:00:00.000Z">2021-12-27 00:00</option>
-            <option value="2021-12-27T01:00:00.000Z">2021-12-27 01:00</option>
-            <option value="2021-12-27T02:00:00.000Z">2021-12-27 02:00</option>
-            <option value="2021-12-27T03:00:00.000Z">2021-12-27 03:00</option>
-            <option value="2021-12-27T04:00:00.000Z">2021-12-27 04:00</option>
-            <option value="2021-12-27T05:00:00.000Z">2021-12-27 05:00</option>
-            <option value="2021-12-27T06:00:00.000Z">2021-12-27 06:00</option>
-            <option value="2021-12-27T07:00:00.000Z">2021-12-27 07:00</option>
-            <option value="2021-12-27T08:00:00.000Z">2021-12-27 08:00</option>
-            <option value="2021-12-27T09:00:00.000Z">2021-12-27 09:00</option>
-            <option value="2021-12-27T10:00:00.000Z">2021-12-27 10:00</option>
-            <option value="2021-12-27T11:00:00.000Z">2021-12-27 11:00</option>
-            <option value="2021-12-27T12:00:00.000Z">2021-12-27 12:00</option>
-            <option value="2021-12-27T13:00:00.000Z">2021-12-27 13:00</option>
-            <option value="2021-12-27T14:00:00.000Z">2021-12-27 14:00</option>
-            <option value="2021-12-27T15:00:00.000Z">2021-12-27 15:00</option>
-            <option value="2021-12-27T16:00:00.000Z">2021-12-27 16:00</option>
-            <option value="2021-12-27T17:00:00.000Z">2021-12-27 17:00</option>
-            <option value="2021-12-27T18:00:00.000Z">2021-12-27 18:00</option>
-            <option value="2021-12-27T19:00:00.000Z">2021-12-27 19:00</option>
-            <option value="2021-12-27T20:00:00.000Z">2021-12-27 20:00</option>
-            <option value="2021-12-27T21:00:00.000Z">2021-12-27 21:00</option>
-            <option value="2021-12-27T22:00:00.000Z">2021-12-27 22:00</option>
-            <option value="2021-12-27T23:00:00.000Z">2021-12-27 23:00</option>
-            <option value="2021-12-28T00:00:00.000Z">2021-12-28 00:00</option>
-            <option value="2021-12-28T01:00:00.000Z">2021-12-28 01:00</option>
-            <option value="2021-12-28T02:00:00.000Z">2021-12-28 02:00</option>
-            <option value="2021-12-28T03:00:00.000Z">2021-12-28 03:00</option>
-            <option value="2021-12-28T04:00:00.000Z">2021-12-28 04:00</option>
-            <option value="2021-12-28T05:00:00.000Z">2021-12-28 05:00</option>
-            <option value="2021-12-28T06:00:00.000Z">2021-12-28 06:00</option>
-            <option value="2021-12-28T07:00:00.000Z">2021-12-28 07:00</option>
-            <option value="2021-12-28T08:00:00.000Z">2021-12-28 08:00</option>
-            <option value="2021-12-28T09:00:00.000Z">2021-12-28 09:00</option>
-            <option value="2021-12-28T10:00:00.000Z">2021-12-28 10:00</option>
-            <option value="2021-12-28T11:00:00.000Z">2021-12-28 11:00</option>
-            <option value="2021-12-28T12:00:00.000Z">2021-12-28 12:00</option>
-            <option value="2021-12-28T13:00:00.000Z">2021-12-28 13:00</option>
-            <option value="2021-12-28T14:00:00.000Z">2021-12-28 14:00</option>
-            <option value="2021-12-28T15:00:00.000Z">2021-12-28 15:00</option>
-            <option value="2021-12-28T16:00:00.000Z">2021-12-28 16:00</option>
-            <option value="2021-12-28T17:00:00.000Z">2021-12-28 17:00</option>
-            <option value="2021-12-28T18:00:00.000Z">2021-12-28 18:00</option>
-            <option value="2021-12-28T19:00:00.000Z">2021-12-28 19:00</option>
-            <option value="2021-12-28T20:00:00.000Z">2021-12-28 20:00</option>
-            <option value="2021-12-28T21:00:00.000Z">2021-12-28 21:00</option>
-            <option value="2021-12-28T22:00:00.000Z">2021-12-28 22:00</option>
-            <option value="2021-12-28T23:00:00.000Z">2021-12-28 23:00</option>
-            <option value="2021-12-29T00:00:00.000Z">2021-12-29 00:00</option>
-            <option value="2021-12-29T01:00:00.000Z">2021-12-29 01:00</option>
-            <option value="2021-12-29T02:00:00.000Z">2021-12-29 02:00</option>
-            <option value="2021-12-29T03:00:00.000Z">2021-12-29 03:00</option>
-            <option value="2021-12-29T04:00:00.000Z">2021-12-29 04:00</option>
-            <option value="2021-12-29T05:00:00.000Z">2021-12-29 05:00</option>
-            <option value="2021-12-29T06:00:00.000Z">2021-12-29 06:00</option>
-            <option value="2021-12-29T07:00:00.000Z">2021-12-29 07:00</option>
-            <option value="2021-12-29T08:00:00.000Z">2021-12-29 08:00</option>
-            <option value="2021-12-29T09:00:00.000Z">2021-12-29 09:00</option>
-            <option value="2021-12-29T10:00:00.000Z">2021-12-29 10:00</option>
-            <option value="2021-12-29T11:00:00.000Z">2021-12-29 11:00</option>
-            <option value="2021-12-29T12:00:00.000Z">2021-12-29 12:00</option>
-            <option value="2021-12-29T13:00:00.000Z">2021-12-29 13:00</option>
-            <option value="2021-12-29T14:00:00.000Z">2021-12-29 14:00</option>
-            <option value="2021-12-29T15:00:00.000Z">2021-12-29 15:00</option>
-            <option value="2021-12-29T16:00:00.000Z">2021-12-29 16:00</option>
-            <option value="2021-12-29T17:00:00.000Z">2021-12-29 17:00</option>
-            <option value="2021-12-29T18:00:00.000Z">2021-12-29 18:00</option>
-            <option value="2021-12-29T19:00:00.000Z">2021-12-29 19:00</option>
-            <option value="2021-12-29T20:00:00.000Z">2021-12-29 20:00</option>
-            <option value="2021-12-29T21:00:00.000Z">2021-12-29 21:00</option>
-            <option value="2021-12-29T22:00:00.000Z">2021-12-29 22:00</option>
-            <option value="2021-12-29T23:00:00.000Z">2021-12-29 23:00</option>
-            <option value="2021-12-30T00:00:00.000Z">2021-12-30 00:00</option>
-            <option value="2021-12-30T01:00:00.000Z">2021-12-30 01:00</option>
-            <option value="2021-12-30T02:00:00.000Z">2021-12-30 02:00</option>
-            <option value="2021-12-30T03:00:00.000Z">2021-12-30 03:00</option>
-            <option value="2021-12-30T04:00:00.000Z">2021-12-30 04:00</option>
-            <option value="2021-12-30T05:00:00.000Z">2021-12-30 05:00</option>
-            <option value="2021-12-30T06:00:00.000Z">2021-12-30 06:00</option>
-            <option value="2021-12-30T07:00:00.000Z">2021-12-30 07:00</option>
-        </select>
-        <h1>Rectoría, Piso 4</h1>
-        <floor-map src="./test2.json" date="2022-01-29T04:00:00.000Z">
-            <div style="height: 10px; width: 10px; background: black;"></div>
-        </floor-map>
-    </main>
-    <aside>
-        <div id="detail-id">rectoria-ITESM-4-espera</div>
-        <div id="detail-name">Sala de espera</div>
-        <div id="detail-occupation">
-            <span>1 - 4</span>
-            <span class="material-icons">emoji_people</span>
+    <nav>
+        <img src="./spaices.png" alt="" srcset="">
+        <span class="divider"></span>
+        <h1>Rectoría Piso 4</h1>
+
+        <div id="date-controller">
+            <button>Hoy</button>
+            <div tabindex="1">
+                
+            </div>
         </div>
-        <hr>
-        <canvas id="detail-historic-chart" height="400px"></canvas>
-        <hr>
 
-        <div id="test"></div>
-
-    </aside>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/moment@^2"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-moment@^1"></script>
-    <script>
-        document.querySelector('#date').addEventListener('change', e=>{
-            console.log(e.target.value)
-            document.querySelector('floor-map').setAttribute('date', e.target.value)
-        })
-
-        document.querySelector('floor-map').addEventListener('select', e => {
-            document.querySelector('#detail-id').innerHTML = e.detail.space.id;
-            document.querySelector('#detail-name').innerHTML = e.detail.space.properties.name;
-            document.querySelector('#detail-occupation>span').innerHTML = e.detail.space.data
-                .find(e=>e.date == document.querySelector('#date').value)
-                ?.value;
-
-            document.querySelector('#test').innerHTML = JSON.stringify(e.detail.space, null, 2);
-            myChart.data.datasets[0].data = e.detail.space.data;
-            myChart.update();
-        })
-
-        const ctx = document.getElementById('detail-historic-chart').getContext('2d');
-        let myChart = new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: [],
-                datasets: [
-                    {
-                        data: [],
-                        label: 'Ocupación histórica'
-                    }
-                ]
-            },
-            options: {
-                scales: {
-                    x: {
-                        type: 'time',
-                        time: {
-                            // Luxon format string
-                            tooltipFormat: 'DD T'
-                        },
-                        title: {
-                            display: true,
-                            text: 'Date'
-                        }
-                    },
-                    y: {
-                        title: {
-                            display: true,
-                            text: 'value'
-                        }
-                    }
-                },
-                parsing: {
-                    xAxisKey: 'date',
-                    yAxisKey: 'value'
-                }
-            }
-        });
-
-
-    </script>
+    </nav>
+    <div class="body">
+        <div id="map">
+            <floor-map src="./test2.json" date="2022-01-29T04:00:00.000Z"></floor-map>
+        </div>
+        <div id="sidebar">
+            <div id="space-id">QWESRT45</div>
+            <div id="space-name">Sala de espera</div>
+            <hr>
+            <div id="space-occupation">2 - 4</div>
+            <div id="space-occupation-detail">ocupación media</div>
+        </div>
+    </div>
+    <footer>
+        <img src="./logo.png" alt="Tecnológico de Monterrey" srcset="">
+    </footer>
 
     <script src="./floor-map.js" type="module"></script>
+    <script>
+        document.querySelector('#date-controller'),addEventListener('click', e => {
+            e.target.focus();
+        })
+        document.querySelector('floor-map').addEventListener('select', e => {
+            console.log(e.detail);
+            const {id, properties: {name}, data} = e.detail.space;
+            document.querySelector("#space-id").innerHTML = id;
+            document.querySelector("#space-name").innerHTML = name;
+            updateDate("2021-12-25T07:00:00.000Z", e.detail.space.data);
+        })
 
+        function updateDate(date, data){
+            document.querySelector("#space-occupation").innerHTML = (data.find(r => r.date == date)?.value - 1).toString() + "—" + (data.find(r => r.date == date)?.value + 1).toString();
+        }
+
+    </script>
 </body>
-
 </html>

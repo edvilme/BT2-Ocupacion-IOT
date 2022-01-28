@@ -1,0 +1,111 @@
+body{
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: whitesmoke;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+nav{
+    height: 80px;
+    width: 100%;
+    padding: 16px;
+    background: red;
+    display: flex;
+    align-items: center;
+    background: white;
+    box-sizing: border-box;
+}
+    nav img{
+        height: 60px;
+    }
+    nav .divider{
+        height: calc(100% - 16px);
+        width: 1px;
+        background: black;
+        margin: 16px;
+        display: inline-block;
+    }
+
+    nav #date-controller{
+        margin-left: auto;
+        position: relative;
+        display: flex;
+        justify-content: flex-end;
+    }
+        nav #date-controller > button {
+            font-size: 1rem;
+        }
+        nav #date-controller > div{
+            position: absolute;
+            top: 100%;
+            display: none;
+            background: green;
+            padding: 16px;
+            width: 300px;
+            margin: 8px;
+        }
+        nav #date-controller:active > div, 
+        nav #date-controller:focus-within > div {
+            display: block;
+        }
+
+.body{
+    flex: 1;
+    display: flex;
+    align-items: stretch;
+}
+    .body #map{
+        flex: 1;
+        min-height: 600px;
+        display: flex;
+        align-items: center;
+    }
+        .body #map floor-map{
+            flex: 1;
+            height: 80vh;
+            margin: auto;
+        }
+    .body #sidebar{
+        width: 400px;
+        padding: 16px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+    }
+        .body #sidebar #space-id{
+            color: grey;
+            font-size: 1rem;
+            font-weight: 600;
+            padding: 0.5rem 0;
+            border-top: 1px solid;
+            display: inline-block;
+            text-transform: uppercase;
+        }
+        .body #sidebar #space-name{
+            font-size: 2rem;
+        }
+        .body #sidebar #space-occupation{
+            font-size: 3rem;
+            font-weight: 600;
+        }
+        .body #sidebar #space-occupation-detail{
+            background: black;
+            padding: 4px 16px;
+            margin: 8px 0px;
+            margin-left: -8px;
+            border-radius: 16px;
+            color: white;
+        }
+
+footer{
+    background: black;
+    color: white;
+    padding: 8px;
+}
+    footer img{
+        height: 60px;
+    }

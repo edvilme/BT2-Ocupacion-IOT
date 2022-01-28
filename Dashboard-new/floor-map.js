@@ -8,7 +8,12 @@ template.innerHTML = `
             font-family: Arial, Helvetica, sans-serif;
         }
         div{
-            height: 100%
+            height: 100%;
+            text-align: center;
+        }
+        svg{
+            height: 100% !important;
+            display: inline-block
         }
     </style>
     <div>
