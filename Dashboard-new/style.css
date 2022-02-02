@@ -29,15 +29,15 @@ nav{
         display: inline-block;
     }
 
+    nav button {
+        font-size: 1rem;
+    }
+
     nav #date-controller{
-        margin-left: auto;
         position: relative;
         display: flex;
         justify-content: flex-end;
     }
-        nav #date-controller > button {
-            font-size: 1rem;
-        }
         nav #date-controller > div{
             position: absolute;
             top: 100%;
