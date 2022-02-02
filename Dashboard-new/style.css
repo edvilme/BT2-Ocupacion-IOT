@@ -18,7 +18,7 @@ nav{
     background: white;
     box-sizing: border-box;
 }
-    nav img{
+    nav #logo{
         height: 60px;
     }
     nav .divider{
@@ -42,10 +42,12 @@ nav{
             position: absolute;
             top: 100%;
             display: none;
-            background: green;
+            background: white;
             padding: 16px;
             width: 300px;
             margin: 8px;
+            height: auto;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
         }
         nav #date-controller:active > div, 
         nav #date-controller:focus-within > div {

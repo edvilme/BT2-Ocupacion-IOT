@@ -9,14 +9,14 @@
 </head>
 <body>
     <nav>
-        <img src="./spaices.png" alt="" srcset="">
+        <img src="./spaices.png" alt="" srcset="" id="logo">
         <span class="divider"></span>
         <h1>Rectoría Piso 4</h1>
 
         <div id="date-controller">
             <button>Hoy</button>
             <div tabindex="1">
-                
+                <img src="./asset-calendar.png" alt="" srcset="" width="100%" height="auto">
             </div>
         </div>
 
@@ -53,7 +53,7 @@
         })
 
         function updateDate(date, data){
-            document.querySelector("#space-occupation").innerHTML = (data.find(r => r.date == date)?.value - 1).toString() + "—" + (data.find(r => r.date == date)?.value + 1).toString();
+            document.querySelector("#space-occupation").innerHTML = (data.find(r => r.date == date)?.value - 1).toString() + " - " + (data.find(r => r.date == date)?.value + 1).toString();
         }
     </script>
 </body>
