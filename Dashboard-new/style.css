@@ -103,9 +103,14 @@ nav{
 
 footer{
     background: black;
-    color: white;
+    color: white !important;
     padding: 8px;
+    display: flex;
+    align-items: center;
 }
     footer img{
         height: 60px;
+    }
+    footer a {
+        color: white;
     }

@@ -35,6 +35,8 @@
     </div>
     <footer>
         <img src="./logo.png" alt="Tecnológico de Monterrey" srcset="">
+        <a href="mailto:ceballos@tec.mx">Contáctanos</a>
+        <span>&ThinSpace; • Versión preeliminar de tablero. Última actualización el 27 de enero del 2022</span>
     </footer>
 
     <script src="./floor-map.js" type="module"></script>
@@ -53,7 +55,6 @@
         function updateDate(date, data){
             document.querySelector("#space-occupation").innerHTML = (data.find(r => r.date == date)?.value - 1).toString() + "—" + (data.find(r => r.date == date)?.value + 1).toString();
         }
-
     </script>
 </body>
 </html>

@@ -1,6 +1,6 @@
 const fs = require('fs');
 
-fs.readFile('./test.json', (err, data) => {
+fs.readFile('./test-old.json', (err, data) => {
     const d = JSON.parse(data.toString());
 
     d.spaces.forEach((space, i) => {
