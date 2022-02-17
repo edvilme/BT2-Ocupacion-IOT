@@ -46,6 +46,16 @@
     <script src="./floor-map.js" type="module"></script>
     <script src="./data.js?a"></script>
     <script>
+        async function load(){
+            const data = await getDataForAllSpacesCurrent()
+            document.querySelector('floor-map').__data = data;
+            document.querySelector('floor-map').loadSVG(data.map.src)
+        }
+        load();
+        setTimeout(load, 5*60*1000)
+
+        
+
         document.querySelector('#date-controller'),addEventListener('click', e => {
             e.target.focus();
         })
@@ -58,7 +68,8 @@
         })
 
         function updateDate(date, data){
-            document.querySelector("#space-occupation").innerHTML = (data.find(r => r.date == date)?.value - 1).toString() + " - " + (data.find(r => r.date == date)?.value + 1).toString();
+            console.log(data)
+            document.querySelector("#space-occupation").innerHTML = data?.[data.length-1]?.value;
         }
     </script>
 </body>

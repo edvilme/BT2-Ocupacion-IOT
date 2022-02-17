@@ -92,12 +92,10 @@ class FloorMapElement extends HTMLElement{
     }
     update(){
         // Get date
-        const date = this.getAttribute('date')
         this.__data?.spaces?.forEach?.(space => {
             const __polygon = this.shadowRoot.querySelector('svg').getElementById(space.id)
-            const occupation = space.data.find(item => item.date == date)?.value || 0;
-            const occupationPercentage = occupation/space.maxOccupancy;
-            __polygon.setAttributeNS(null, 'fill', getColorFromPercentage(occupationPercentage));
+            const occupation = space.data?.[space.data.length-1]?.value || '?';
+            __polygon.setAttributeNS(null, 'fill', getColorFromPercentage(occupation));
         })
         
     }
